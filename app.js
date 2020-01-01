@@ -59,7 +59,9 @@ client.on("message", async message => {
             for(i of top520) {
                 let name = i.name
                 let price = i.exalted.toFixed(2)
-                embed.addField(name, price)
+                if(i.gemLevel == "21" && i.gemQuality == "20") {
+                    embed.addField(name, price)
+                }
             }
         });
         // Set the title of the field embed.addField(fruit, fruit)
@@ -71,4 +73,4 @@ client.on("message", async message => {
     }
 });
   
-client.login(process.env.BOT_TOKEN);
+client.login(NjYxNzYzNDQ1OTI1ODcxNjE2.XgwPkQ.n71SUyBDC0mHG7oBzvc8qOC3K_Q); //NjYxNzYzNDQ1OTI1ODcxNjE2.XgwPkQ.n71SUyBDC0mHG7oBzvc8qOC3K_Q     process.env.BOT_TOKEN
