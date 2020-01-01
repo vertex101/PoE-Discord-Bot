@@ -58,16 +58,16 @@ client.on("message", async message => {
             .setTitle('Top 5 21/20 Gems')
             // Set the color of the embed
             .setColor(0xFF0000)
-        request("https://api.poe.watch/get?league=Metamorph&category=gem", function (error, responce, body) {
-            top520 = JSON.parse(body);
-            top520.forEach(function (fruit) {
-                if(fruit.gemLevel == "21" && fruit.gemQuality == "20") { //&& fruit.change != "0"
-                    embed.addField(fruit.name, fruit.exalted.toFixed(2))
-                }
+            request("https://api.poe.watch/get?league=Metamorph&category=gem", function (error, responce, body) {
+                top520 = JSON.parse(body);
+                top520.forEach(function (fruit) {
+                    if(fruit.gemLevel == "21" && fruit.gemQuality == "20") { //&& fruit.change != "0"
+                        embed.addField(fruit.name, fruit.exalted.toFixed(2))
+                    }
+                });
             });
         // Send the embed to the same channel as the message
         message.channel.send(embed);
-        });
     }
 });
   
