@@ -56,12 +56,13 @@ client.on("message", async message => {
         let embed = new RichEmbed();
         request("https://api.poe.watch/get?league=Metamorph&category=gem", function (error, responce, body) {
             top520 = JSON.parse(body);
-            for(var i = 0; i < 4; i++) {
+            for(var i = 0; i < top520.length(); i++) {
                 let name = top520[i].name
                 let price = top520[i].exalted.toFixed(2)
                 if(top520[i].gemLevel == "21" && top520[i].gemQuality == "20") {
                     embed.addField(name, price)
                 }
+                if(i = 4) {return}
             }
         });
         // Set the title of the field embed.addField(fruit, fruit)
