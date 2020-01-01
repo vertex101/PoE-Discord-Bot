@@ -2,6 +2,7 @@ const { Client, RichEmbed } = require("discord.js");
 const request = require('request');
 const client = new Client();
 var prefix = "!";
+var gem2120 = []
 client.on("ready", () => {
     // This event will run if the bot starts, and logs in, successfully.
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
@@ -56,15 +57,22 @@ client.on("message", async message => {
         let embed = new RichEmbed();
         request("https://api.poe.watch/get?league=Metamorph&category=gem", function (error, responce, body) {
             top520 = JSON.parse(body);
-            for(var i = 0; i < top520.length; i++) {
-                let name = top520[i].name
-                let price = top520[i].exalted.toFixed(2)
-                if(top520[i].gemLevel == "21" && top520[i].gemQuality == "20") {
-                    embed.addField(name, price)
+            top520.forEach(function (fruit) {
+                if(fruit.gemLevel == "21" && fruit.gemQuality == "20") { //&& fruit.change != "0"
+                    gem2120.push(fruit.name+":"+fruit.exalted.toFixed(2))
                 }
-                if(i = 4) {return}
-            }
+            });
         });
+        var gem1 = gem2120[0].split(":")
+        var gem2 = gem2120[1].split(":")
+        var gem3 = gem2120[2].split(":")
+        var gem4 = gem2120[3].split(":")
+        var gem5 = gem2120[4].split(":")
+        embed.addField(gem1[0], gem1[1])
+        embed.addField(gem2[0], gem2[1])
+        embed.addField(gem3[0], gem3[1])
+        embed.addField(gem4[0], gem4[1])
+        embed.addField(gem5[0], gem5[1])
         // Set the title of the field embed.addField(fruit, fruit)
         embed.setTitle('Top 5 21/20 Gems')
         // Set the color of the embed
