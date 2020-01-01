@@ -2,7 +2,7 @@ const { Client, RichEmbed } = require("discord.js");
 const request = require('request');
 const client = new Client();
 var prefix = "!";
-var gem2120 = []
+var gem2120 = [], gem2123 = []
 client.on("ready", () => {
     // This event will run if the bot starts, and logs in, successfully.
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
@@ -22,7 +22,6 @@ client.on("message", async message => {
     if(message.author.bot) return;
     if(message.content.indexOf(prefix) !== 0) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    console.log(args[1])
     const command = args.shift().toLowerCase();
     // Let's go with a few common example commands! Feel free to delete or change those.
     if(command === "ex") {
@@ -86,14 +85,14 @@ client.on("message", async message => {
             top520 = JSON.parse(body);
             top520.forEach(function (fruit) {
                 if(fruit.gemLevel == "21" && fruit.gemQuality == "23") { //&& fruit.change != "0"
-                    gem2120.push(fruit.name+":"+fruit.exalted.toFixed(2))
+                    gem2123.push(fruit.name+":"+fruit.exalted.toFixed(2))
                 }
             });
-            var gem1 = gem2120[0].split(":")
-            var gem2 = gem2120[1].split(":")
-            var gem3 = gem2120[2].split(":")
-            var gem4 = gem2120[3].split(":")
-            var gem5 = gem2120[4].split(":")
+            var gem1 = gem2123[0].split(":")
+            var gem2 = gem2123[1].split(":")
+            var gem3 = gem2123[2].split(":")
+            var gem4 = gem2123[3].split(":")
+            var gem5 = gem2123[4].split(":")
             let embed = new RichEmbed();
             embed.addField(gem1[0], gem1[1]+"ex")
             embed.addField(gem2[0], gem2[1]+"ex")
