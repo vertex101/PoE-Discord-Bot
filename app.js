@@ -62,17 +62,17 @@ client.on("message", async message => {
                     gem2120.push(fruit.name+":"+fruit.exalted.toFixed(2))
                 }
             });
+            var gem1 = gem2120[0].split(":")
+            var gem2 = gem2120[1].split(":")
+            var gem3 = gem2120[2].split(":")
+            var gem4 = gem2120[3].split(":")
+            var gem5 = gem2120[4].split(":")
+            embed.addField(gem1[0], gem1[1])
+            embed.addField(gem2[0], gem2[1])
+            embed.addField(gem3[0], gem3[1])
+            embed.addField(gem4[0], gem4[1])
+            embed.addField(gem5[0], gem5[1])
         });
-        var gem1 = gem2120[0].split(":")
-        var gem2 = gem2120[1].split(":")
-        var gem3 = gem2120[2].split(":")
-        var gem4 = gem2120[3].split(":")
-        var gem5 = gem2120[4].split(":")
-        embed.addField(gem1[0], gem1[1])
-        embed.addField(gem2[0], gem2[1])
-        embed.addField(gem3[0], gem3[1])
-        embed.addField(gem4[0], gem4[1])
-        embed.addField(gem5[0], gem5[1])
         // Set the title of the field embed.addField(fruit, fruit)
         embed.setTitle('Top 5 21/20 Gems')
         // Set the color of the embed
