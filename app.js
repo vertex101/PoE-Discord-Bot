@@ -44,11 +44,15 @@ client.on("message", async message => {
         });
     }
     if(command == "round") {
-        request('https://api.poe.watch/item?id=142', function (error, response, body) {
-            pullData = JSON.parse(body);
-            var cTotal = (pullData.leagues[0].mode * Number("0." + args[0] + "0"))
-            message.channel.send("0." + args[0] + "ex is " + Math.round(cTotal) + "c"); 
-        });
+        if(args[0]) {
+            request('https://api.poe.watch/item?id=142', function (error, response, body) {
+                pullData = JSON.parse(body);
+                var cTotal = (pullData.leagues[0].mode * Number("0." + args[0] + "0"))
+                message.channel.send("0." + args[0] + "ex is " + Math.round(cTotal) + "c"); 
+            });
+        } else {
+            message.channel.send("Usage: !round [1-9]"); 
+        }
     }
     if(command == "20") {
         request("https://api.poe.watch/get?league=Metamorph&category=gem", function (error, responce, body) {
