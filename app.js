@@ -46,7 +46,7 @@ client.on("message", async message => {
     if(command == "round") {
         request('https://api.poe.watch/item?id=142', function (error, response, body) {
             pullData = JSON.parse(body);
-            var cTotal = (pullData.leagues[0].mode * Number("0." + args[1].toString() + "0"))
+            var cTotal = (pullData.leagues[0].mode * Number("0." + args[1] + "0"))
             message.channel.send("0." + args[1].toString() + "ex is " + Math.round(cTotal) + "c"); 
         });
     }
