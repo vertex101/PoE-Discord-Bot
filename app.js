@@ -49,6 +49,7 @@ client.on("message", async message => {
             var cTotal = (pullData.leagues[0].mode * Number("0." + args[1] + "0"))
             message.channel.send("0." + args[1] + "ex is " + Math.round(cTotal) + "c"); 
         });
+    }
     if(command == "20") {
         request("https://api.poe.watch/get?league=Metamorph&category=gem", function (error, responce, body) {
             top520 = JSON.parse(body);
