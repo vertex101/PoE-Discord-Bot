@@ -22,7 +22,7 @@ client.on("message", async message => {
     if(message.author.bot) return;
     if(message.content.indexOf(prefix) !== 0) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    console.log(args)
+    console.log(args[1])
     const command = args.shift().toLowerCase();
     // Let's go with a few common example commands! Feel free to delete or change those.
     if(command === "ex") {
@@ -44,7 +44,7 @@ client.on("message", async message => {
         });
     }
     if(command == "round") {
-        if(args[2]) {
+        if(args[1]) {
             request('https://api.poe.watch/item?id=142', function (error, response, body) {
                 pullData = JSON.parse(body);
                 var cTotal = (pullData.leagues[0].mode * Number("0." + args[2] + "0"))
