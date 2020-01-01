@@ -1,7 +1,6 @@
 const { Client, RichEmbed } = require("discord.js");
 const request = require('request');
 const client = new Client();
-let embed = new RichEmbed()
 var prefix = "!";
 client.on("ready", () => {
     // This event will run if the bot starts, and logs in, successfully.
@@ -54,10 +53,7 @@ client.on("message", async message => {
         }
     }
     if(command == "20") {
-        // Set the title of the field embed.addField(fruit, fruit)
-        embed.setTitle('Top 5 21/20 Gems')
-        // Set the color of the embed
-        embed.setColor(0xFF0000)
+        let embed = new RichEmbed();
         request("https://api.poe.watch/get?league=Metamorph&category=gem", function (error, responce, body) {
             top520 = JSON.parse(body);
             for(i of top520) {
@@ -66,6 +62,10 @@ client.on("message", async message => {
                 embed.addField(name, price)
             }
         });
+        // Set the title of the field embed.addField(fruit, fruit)
+        embed.setTitle('Top 5 21/20 Gems')
+        // Set the color of the embed
+        embed.setColor(0xFF0000)
         // Send the embed to the same channel as the message
         message.channel.send(embed);
     }
