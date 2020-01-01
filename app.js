@@ -38,6 +38,29 @@ client.on("message", async message => {
             message.channel.send("1 Exalted Orb is equal to " + pullData.leagues[0].mode + " Chaos");
         });
     }
+    if(msg[0] == "!hunter") {
+        request('https://api.poe.watch/item?id=3891', function (error, response, body) {
+            pullData = JSON.parse(body);
+            message.channel.send("HeadHunter is worth " + pullData.leagues[0].exalted.toFixed(2) + "ex");
+        });
+    }
+    if(msg[0] == "!mirror") {
+        request('https://api.poe.watch/item?id=3283', function (error, response, body) {
+            pullData = JSON.parse(body);
+            message.channel.send("Mirror of Kalandra is worth " + pullData.leagues[0].exalted.toFixed(2) + "ex");
+        });
+    }
+    if(msg[0] == "!round") {
+        if(msg[1]) {
+            request('https://api.poe.watch/item?id=142', function (error, response, body) {
+                pullData = JSON.parse(body);
+                var cTotal = (pullData.leagues[0].mode * Number("0." + msg[1] + "0"))
+                message.channel.send("0." + msg[1] + "ex is " + Math.round(cTotal) + "c"); 
+            });
+        } else {
+            message.channel.send("Usage: !round [1-9]"); 
+        }
+    }
 });
   
 client.login(process.env.BOT_TOKEN);
