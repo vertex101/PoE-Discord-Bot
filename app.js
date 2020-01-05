@@ -20,10 +20,31 @@ client.on("guildDelete", guild => {
 });
 client.on("message", async message => {
     if(message.author.bot) return;
+
+    if(message.content.includes('```poe')) {
+        var sOne = message.content.split('```poe\n')
+        var sTwo = sOne[1].split('\n\n```') //sTwo[0]
+        let buf = Buffer.from(sTwo[0])
+        let encodedData = buf.toString('base64');
+        if(sTwo[0].includes('Rarity: Unique')) {
+            message.channel.send('API doesnt allow the checking of Unique items!')
+        }else {
+            request('https://www.poeprices.info/api?l=Metamorph&i='+encodedData, function (error, response, body) {
+            pullData = JSON.parse(body);
+            if(pullData.currency == "chaos") {
+                message.channel.send("Item min "+pullData.min.toFixed(1)+"c max "+pullData.max.toFixed(1)+"c with a confidence of "+Math.round(pullData.pred_confidence_score)+"%");
+            }else {
+                message.channel.send("Item min "+pullData.min.toFixed(1)+"ex max "+pullData.max.toFixed(1)+"ex with a confidence of "+Math.round(pullData.pred_confidence_score)+"%");
+            }
+        });
+        }
+
+    }
+
     if(message.content.indexOf(prefix) !== 0) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-    // Let's go with a few common example commands! Feel free to delete or change those.
+
     if(command === "ex") {
         request('https://api.poe.watch/item?id=142', function (error, response, body) {
             pullData = JSON.parse(body);
@@ -107,6 +128,16 @@ client.on("message", async message => {
             message.channel.send(embed);
         });
     }
+    if(message.author.username = "Vertex101") {
+        if(command == "clear") {
+            async function clear() {
+                message.delete();
+                const fetched = await message.channel.fetchMessages({limit: 100});
+                message.channel.bulkDelete(fetched);
+            }
+            clear();
+        }
+    }
 });
-  
-client.login(process.env.BOT_TOKEN);
+
+client.login(process.env.BOT_TOKEN); 

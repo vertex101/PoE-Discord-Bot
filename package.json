@@ -8,6 +8,7 @@
   },
   "author": "Vertex101",
   "dependencies": {
+    "base64-url": "^2.3.3",
     "discord.js": "^11.5.1",
     "request": "^2.88.0"
   }
