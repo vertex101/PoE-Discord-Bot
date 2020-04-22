@@ -27,7 +27,7 @@ client.on("message", async message => {
         if(sTwo[0].includes('Rarity: Unique')) {
             message.channel.send('API doesnt allow the checking of Unique items!')
         }else {
-            request('https://www.poeprices.info/api?l=Metamorph&i='+encodedData, function (error, response, body) {
+            request('https://www.poeprices.info/api?l=Delirium&i='+encodedData, function (error, response, body) {
             pullData = JSON.parse(body);
             if(pullData.currency == "chaos") {
                 message.channel.send("Item min "+pullData.min.toFixed(1)+"c max "+pullData.max.toFixed(1)+"c with a confidence of "+Math.round(pullData.pred_confidence_score)+"%");
