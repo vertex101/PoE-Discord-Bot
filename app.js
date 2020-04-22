@@ -49,21 +49,61 @@ client.on("message", async message => {
             pullData = JSON.parse(body);
             pullData.lines.forEach(function (ex) {
                 if(ex.currencyTypeName == "Exalted Orb") {
-                    message.channel.send("1 Exalted Orb is equal to " + ex.receive.value.toFixed(2) + " Chaos")
+                    message.channel.send("1 Exalted Orb is equal to " + Math.round(ex.receive.value) + " Chaos")
                 }
             })
         });
     }
     if(command == "hunter") {
-        request('https://api.poe.watch/item?id=3891', function (error, response, body) {
+        request('https://poe.ninja/api/data/itemoverview?league=Delirium&type=UniqueAccessory', function (error, response, body) {
             pullData = JSON.parse(body);
-            message.channel.send("HeadHunter is worth " + pullData.leagues[0].exalted.toFixed(2) + "ex");
+            pullData.lines.forEach(function (hunt) {
+                if(hunt.name == "Headhunter") {
+                    message.channel.send("HeadHunter is worth " + hunt.exaltedValue + "ex")
+                }
+            })
+        });
+    }
+    if(command == "doc") {
+        request('https://poe.ninja/api/data/itemoverview?league=Delirium&type=DivinationCard', function (error, response, body) {
+            pullData = JSON.parse(body);
+            pullData.lines.forEach(function (doc) {
+                if(doc.name == "The Doctor") {
+                    message.channel.send("The Doctor is worth " + doc.exaltedValue + "ex")
+                }
+            })
         });
     }
     if(command == "mirror") {
-        request('https://api.poe.watch/item?id=3283', function (error, response, body) {
+        request('https://poe.ninja/api/data/currencyoverview?league=Delirium&type=Currency', function (error, response, body) {
             pullData = JSON.parse(body);
-            message.channel.send("Mirror of Kalandra is worth " + pullData.leagues[0].exalted.toFixed(2) + "ex");
+            pullData.lines.some(function (mir) {
+                var cc , mm
+                if(mir.currencyTypeName == "Mirror of Kalandra") {
+                    mm = mir.receive.value
+                }
+                request('https://poe.ninja/api/data/currencyoverview?league=Delirium&type=Currency', function (error, response, body) {
+                    pullData = JSON.parse(body);
+                    pullData.lines.some(function (ccc) {
+                        if(ccc.currencyTypeName == "Exalted Orb") {
+                            cc = ccc.receive.value
+                        }
+                        return ccc.currencyTypeName === "Exalted Orb"
+                    })
+                });
+                message.channel.send("Mirror of Kalandra is worth " + Math.round(mm / cc) + "ex")
+                return mir.currencyTypeName === "Mirror of Kalandra"
+            })
+        });
+    }
+    if(command == "sim") {
+        request('https://poe.ninja/api/data/currencyoverview?league=Delirium&type=Fragment', function (error, response, body) {
+            pullData = JSON.parse(body);
+            pullData.lines.forEach(function (sim) {
+                if(sim.currencyTypeName == "Simulacrum") {
+                    message.channel.send("Simulacrum is equal to " + Math.round(sim.receive.value) + " Chaos")
+                }
+            })
         });
     }
     if(message.author.username = "Vertex101") {
