@@ -88,6 +88,7 @@ client.on("message", async message => {
                         if(ccc.currencyTypeName == "Exalted Orb") {
                             cc = ccc.receive.value
                         }
+                        message.channel.send("TEST: " + cc)
                         return ccc.currencyTypeName === "Exalted Orb"
                     })
                 });
