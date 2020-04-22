@@ -90,8 +90,6 @@ client.on("message", async message => {
                 }
                 return ccc.currencyTypeName === "Exalted Orb"
             })
-            message.channel.send("Value of " + cc)
-            message.channel.send("Value of " + mm)
             message.channel.send("Mirror of Kalandra is worth " + Math.round(mm / cc) + "ex")
         });
     }
