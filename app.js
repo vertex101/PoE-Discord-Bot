@@ -77,26 +77,22 @@ client.on("message", async message => {
     if(command == "mirror") {
         request('https://poe.ninja/api/data/currencyoverview?league=Delirium&type=Currency', function (error, response, body) {
             pullData = JSON.parse(body);
+            var cc , mm
             pullData.lines.some(function (mir) {
-                var cc , mm
                 if(mir.currencyTypeName == "Mirror of Kalandra") {
                     mm = mir.receive.value
                 }
-                request('https://poe.ninja/api/data/currencyoverview?league=Delirium&type=Currency', function (error, response, body) {
-                    pullData = JSON.parse(body);
-                    pullData.lines.some(function (ccc) {
-                        if(ccc.currencyTypeName == "Exalted Orb") {
-                            cc = ccc.receive.value
-                        }
-                        console.log("TEST: " + cc)
-                        return ccc.currencyTypeName === "Exalted Orb"
-                    })
-                });
-                message.channel.send("Value of " + cc)
-                message.channel.send("Value of " + mm)
-                message.channel.send("Mirror of Kalandra is worth " + Math.round(mm / cc) + "ex")
                 return mir.currencyTypeName === "Mirror of Kalandra"
             })
+            pullData.lines.some(function (ccc) {
+                if(ccc.currencyTypeName == "Exalted Orb") {
+                    cc = ccc.receive.value
+                }
+                return ccc.currencyTypeName === "Exalted Orb"
+            })
+            message.channel.send("Value of " + cc)
+            message.channel.send("Value of " + mm)
+            message.channel.send("Mirror of Kalandra is worth " + Math.round(mm / cc) + "ex")
         });
     }
     if(command == "sim") {
