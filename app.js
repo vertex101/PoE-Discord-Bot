@@ -2,6 +2,7 @@ const { Client, RichEmbed } = require("discord.js");
 const request = require('request');
 const client = new Client();
 var prefix = "!";
+var newLeague = "Heist";
 client.on("ready", () => {
     // This event will run if the bot starts, and logs in, successfully.
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
@@ -27,7 +28,7 @@ client.on("message", async message => {
         if(sTwo[0].includes('Rarity: Unique')) {
             message.channel.send('API doesnt allow the checking of Unique items!')
         }else {
-            request('https://www.poeprices.info/api?l=Delirium&i='+encodedData, function (error, response, body) {
+            request('https://www.poeprices.info/api?l='+ newLeague +'&i='+encodedData, function (error, response, body) {
             pullData = JSON.parse(body);
             if(pullData.currency == "chaos") {
                 message.channel.send("Item min "+pullData.min.toFixed(1)+"c max "+pullData.max.toFixed(1)+"c with a confidence of "+Math.round(pullData.pred_confidence_score)+"%");
@@ -45,7 +46,7 @@ client.on("message", async message => {
         message.channel.send("Current Commands: !ex, !hunter, !doc, !mirror, !sim")
     }
     if(command == "ex") {
-        request('https://poe.ninja/api/data/currencyoverview?league=Delirium&type=Currency', function (error, response, body) {
+        request('https://poe.ninja/api/data/currencyoverview?league='+ newLeague +'&type=Currency', function (error, response, body) {
             pullData = JSON.parse(body);
             pullData.lines.forEach(function (ex) {
                 if(ex.currencyTypeName == "Exalted Orb") {
@@ -55,7 +56,7 @@ client.on("message", async message => {
         });
     }
     if(command == "hunter") {
-        request('https://poe.ninja/api/data/itemoverview?league=Delirium&type=UniqueAccessory', function (error, response, body) {
+        request('https://poe.ninja/api/data/itemoverview?league='+ newLeague +'&type=UniqueAccessory', function (error, response, body) {
             pullData = JSON.parse(body);
             pullData.lines.forEach(function (hunt) {
                 if(hunt.name == "Headhunter") {
@@ -65,7 +66,7 @@ client.on("message", async message => {
         });
     }
     if(command == "doc") {
-        request('https://poe.ninja/api/data/itemoverview?league=Delirium&type=DivinationCard', function (error, response, body) {
+        request('https://poe.ninja/api/data/itemoverview?league='+ newLeague +'&type=DivinationCard', function (error, response, body) {
             pullData = JSON.parse(body);
             pullData.lines.forEach(function (doc) {
                 if(doc.name == "The Doctor") {
@@ -75,7 +76,7 @@ client.on("message", async message => {
         });
     }
     if(command == "mirror") {
-        request('https://poe.ninja/api/data/currencyoverview?league=Delirium&type=Currency', function (error, response, body) {
+        request('https://poe.ninja/api/data/currencyoverview?league='+ newLeague +'&type=Currency', function (error, response, body) {
             pullData = JSON.parse(body);
             var cc , mm
             pullData.lines.some(function (mir) {
@@ -94,7 +95,7 @@ client.on("message", async message => {
         });
     }
     if(command == "sim") {
-        request('https://poe.ninja/api/data/currencyoverview?league=Delirium&type=Fragment', function (error, response, body) {
+        request('https://poe.ninja/api/data/currencyoverview?league='+ newLeague +'&type=Fragment', function (error, response, body) {
             pullData = JSON.parse(body);
             pullData.lines.forEach(function (sim) {
                 if(sim.currencyTypeName == "Simulacrum") {
